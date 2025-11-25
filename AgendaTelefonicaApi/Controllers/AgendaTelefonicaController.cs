@@ -64,7 +64,7 @@ namespace AgendaTelefonicaApi.Controllers
         [HttpPost("/api/contatos")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Contato))]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public IActionResult CreateContato([FromBody] Contato contato)
+        public IActionResult CriarContato([FromBody] Contato contato)
         {
             if (string.IsNullOrWhiteSpace(contato.Nome))
                 return BadRequest();
@@ -100,7 +100,7 @@ namespace AgendaTelefonicaApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Contato))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdateContato([FromBody] Contato contato, int id)
+        public IActionResult AtualizarContato([FromBody] Contato contato, int id)
         {
             if (id != contato.Id || string.IsNullOrWhiteSpace(contato.Nome))
                 return BadRequest();
@@ -129,7 +129,7 @@ namespace AgendaTelefonicaApi.Controllers
         [HttpDelete("/api/contatos/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult DeleteContato(int id)
+        public IActionResult RemoverContato(int id)
         {
             var existingContato = contatoRepository.ObterPorId(id);
             if (existingContato == null)
@@ -148,7 +148,7 @@ namespace AgendaTelefonicaApi.Controllers
         /// <response code="200">A requisição foi bem-sucedida e a resposta contém a lista de contatos.</response>
         [HttpGet("/api/contatos/pesquisar")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Contato>))]
-        public IActionResult SearchContatosByNome([FromQuery] string nome)
+        public IActionResult BuscarContatoPorNome([FromQuery] string nome)
         {
             if (string.IsNullOrWhiteSpace(nome))
                 return BadRequest("O parâmetro de busca 'nome' é obrigatório.");
